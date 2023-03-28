@@ -1,40 +1,36 @@
 <script setup lang="ts">
-import consolaGlobalInstance from 'consola';
-
-const {currentUser, login} = useAuth()
-
-console.log(currentUser.value)
+import { useAuthStore } from '~/stores/auth'
+const { isLogin, userId, login } = useAuthStore()
 
 interface User {
   id: string,
   password: string
 }
 
-const userInfo: User = {
+const user: User = {
   id: 'admin',
   password: 'admin'
 }
 
-const id = ref('')
-const password = ref('')
+const id: Ref<string> = ref('')
+const password:Ref<string> = ref('')
 
-const userLogin = async () => {
-  if(id.value == ref(userInfo.id).value && password.value == ref(userInfo.password).value) {
-    currentUser.value = true
-    alert('ok')
+const userLogin = async() => {
+  if(id.value == ref(user.id).value && password.value == ref(user.password).value) {
+    isLogin.value = true
     await login()
   }
-  //await login()
 }
+
 </script>
 
 <template>
+  {{ isLogin }}
   <div>
-    {{ id }}
-    id: <input type="text" v-model="id" />
+    id: <input type="text" v-model="id"/>
     <br>
     password: <input type="password" v-model="password" />
     <br>
-    <button @click="userLogin">ログイン</button>
+    <button @click="userLogin()">ログイン</button>
   </div>
 </template>

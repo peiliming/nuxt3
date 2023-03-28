@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   title: 'Home',
-  middleware: ['auth']
+  middleware: 'auth'
 })
 // 各ページのSEO設定
 useHead({
